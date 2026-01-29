@@ -1,0 +1,35 @@
+import java.util.*;
+
+public class Lab03 {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        Box b;
+        while(sc.hasNext()) {
+
+            String cmd = sc.next();
+            double x, y;
+            if(cmd.equals("add")) {
+
+                Point p = read(sc);
+                if(!b)
+                    b = new Box(p);
+                else
+                    b.growBy(p);
+
+            } else if(cmd.equals("box")) {
+                System.out.println(b.toString());
+            } else if(cmd.equals("map")) {
+
+                Point p = read(sc);
+                System.out.println(b.mapIntoUnitSquare(p).toString());
+
+            } else if(cmd.equals("done"))
+                System.exit();
+            else
+                System.out.println("Error! Unknown command \"" + cmd + "\"!");
+
+        }
+    }
+}
