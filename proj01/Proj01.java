@@ -14,13 +14,14 @@ public class Proj01 {
         
         //init file reader scanner and array to hold sections
         Scanner fin = null;
-        Section[] sections = new Section[11];
+        Node sections = null;
         try { 
 
             fin = new Scanner(new FileReader(args[0])); //read file from input
-            int index = 0; //index to count pos in array
-            while(fin.hasNext()) //loop through until can't read anymore
-                sections[index++] = new Section(fin.next(), fin.next(), fin.next(), fin.next());
+            while(fin.hasNext()) {//loop through until can't read anymore
+                Section s = new Section(fin.next(), fin.next(), fin.next(), fin.next());
+                sections = NodeList.addToBack(sections, s); //correct order
+            }
 
         } catch(IOException e) { //error if the file doesnt exist
 
@@ -30,12 +31,17 @@ public class Proj01 {
 
         //make scanner to read user input
         Scanner sc = new Scanner(System.in);
+        Schedule schedule = new Schedule(); //make a new schedule object
         System.out.print("> ");
         while(sc.hasNext()) { //loop while there's input
 
             String cmd = sc.next();
             if(cmd.equals("sections")) //if user wants sections
                 Section.printSections(sections, sc.next()); //print sections
+            else if(cmd.equals("add"))
+                schedule.addToSchedule(sections, sc.next(), sc.next()); //add to schedule
+            else if(cmd.equals("show"))
+                schedule.printSchedule(); //print schedule
             else if(cmd.equals("quit")) //leave while loop if quit
                 break;
             else
