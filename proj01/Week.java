@@ -30,22 +30,22 @@ public class Week {
         }
     }
 
-    // private int[] getRowCol(String period) {
+    private int[] getRowCol(String period) {
 
-    //     char c = period.charAt(0); //get the char for the day
-    //     //get the period of that day
-    //     int row = Integer.parseInt(period.substring(1)) - 1;
+        char c = period.charAt(0); //get the char for the day
+        //get the period of that day
+        int row = Integer.parseInt(period.substring(1)) - 1;
 
-    //     int col = 
-    //         c == 'M' ? 0 :
-    //         c == 'T' ? 1 :
-    //         c == 'W' ? 2 :
-    //         c == 'R' ? 3 :
-    //         4; //get an integer value for the index pertaining that day
+        int col = 
+            c == 'M' ? 0 :
+            c == 'T' ? 1 :
+            c == 'W' ? 2 :
+            c == 'R' ? 3 :
+            4; //get an integer value for the index pertaining that day
 
-    //     int[] A = {row, col};
-    //     return A;
-    // }
+        int[] A = {row, col};
+        return A;
+    }
 
     public void buildWeek(String pat) {
 
@@ -56,19 +56,29 @@ public class Week {
         }
     }
 
-    // public void checkFits(String pat) {
+    private boolean conflicts(String[] periods) {
 
-    //     String[] periods = DrBrown.explode(pat);
-    //     boolean canFit = true;
-    //     for(int i = 0; i < periods.length; i++) {
-    //         int[] rowCol = getRowCol(periods[i]);
-    //         if(A[rowCol[0]][rowCol[1]] == 'x') canFit = false;
-    //     }
+        for(int i = 0; i < periods.length; i++) { //loop through periods
+            int[] rowCol = getRowCol(periods[i]);
+            if(A[rowCol[0]][rowCol[1]] == 'x')  //if theres a slot with x
+                return true; //that means it conflicts
+        }
 
-    //     if(canFit == true) {
+        return false;
+    }
 
-    //     }
-    // }
+    public void fits(NodeList L, Schedule schedule, String s) {
+        
+        int size = L.findNumOccurences(s); //get size of list to look through
+        Section[] sections = L.getData(s, size); //list of courses that match
+        for(int i = 0; i < size; i++) {
+
+            //if it doesn't conflict with current period or isn't already in
+            if(!conflicts(DrBrown.explode(sections[i].getTime())) && 
+                !schedule.isInSchedule(sections[i].getName()))
+                System.out.println(sections[i]); //print the section
+        }
+    }
 
     public static void main(String[] args) {
 
