@@ -11,9 +11,9 @@ public class Schedule {
 
     public Week getWeek() { return week; }
 
-    public void addToSchedule(Node L, String s, String n) {
+    public void addToSchedule(NodeList L, String s, String n) {
 
-        Section section = Section.getSection(L, s, n); //get the section
+        Section section = L.getNode(s, n); //get the section
         if(section == null) { //check if exists
             System.out.println("Error! Section not found!");
             return; //quits if it doesn't

@@ -14,13 +14,13 @@ public class Proj01 {
         
         //init file reader scanner and array to hold sections
         Scanner fin = null;
-        Node sections = null;
+        NodeList sections = new NodeList();
         try { 
 
             fin = new Scanner(new FileReader(args[0])); //read file from input
             while(fin.hasNext()) {//loop through until can't read anymore
                 Section s = new Section(fin.next(), fin.next(), fin.next(), fin.next());
-                sections = NodeList.addToBack(sections, s); //correct order
+                sections.addToBack(s); //add to back for correct order
             }
 
         } catch(IOException e) { //error if the file doesnt exist
@@ -37,7 +37,7 @@ public class Proj01 {
 
             String cmd = sc.next();
             if(cmd.equals("sections")) //if user wants sections
-                Section.printSections(sections, sc.next()); //print sections
+                sections.printNodes(sc.next()); //print sections
             else if(cmd.equals("add"))
                 schedule.addToSchedule(sections, sc.next(), sc.next()); //add to schedule
             else if(cmd.equals("show"))
