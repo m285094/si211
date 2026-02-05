@@ -1,3 +1,5 @@
+// Sam Pirkl
+
 import java.util.*;
 
 public class NRRandom extends Random {
