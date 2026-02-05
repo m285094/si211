@@ -42,6 +42,8 @@ public class Proj01 {
                 schedule.addToSchedule(sections, sc.next(), sc.next()); //add to schedule
             else if(cmd.equals("show"))
                 schedule.printSchedule(); //print schedule
+            else if(cmd.equals("week"))
+                schedule.getWeek().printWeek(); //print grid of schedule
             else if(cmd.equals("quit")) //leave while loop if quit
                 break;
             else
