@@ -30,22 +30,22 @@ public class Week {
         }
     }
 
-    private int[] getRowCol(String period) {
+    // private int[] getRowCol(String period) {
 
-        char c = period.charAt(0); //get the char for the day
-        //get the period of that day
-        int row = Integer.parseInt(period.substring(1)) - 1;
+    //     char c = period.charAt(0); //get the char for the day
+    //     //get the period of that day
+    //     int row = Integer.parseInt(period.substring(1)) - 1;
 
-        int col = 
-            c == 'M' ? 0 :
-            c == 'T' ? 1 :
-            c == 'W' ? 2 :
-            c == 'R' ? 3 :
-            4; //get an integer value for the index pertaining that day
+    //     int col = 
+    //         c == 'M' ? 0 :
+    //         c == 'T' ? 1 :
+    //         c == 'W' ? 2 :
+    //         c == 'R' ? 3 :
+    //         4; //get an integer value for the index pertaining that day
 
-        int[] A = {row, col};
-        return A;
-    }
+    //     int[] A = {row, col};
+    //     return A;
+    // }
 
     public void buildWeek(String pat) {
 
