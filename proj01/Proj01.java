@@ -32,10 +32,11 @@ public class Proj01 {
         //make scanner to read user input
         Scanner sc = new Scanner(System.in);
         Schedule schedule = new Schedule(); //make a new schedule object
-        System.out.print("> ");
-        while(sc.hasNext()) { //loop while there's input
+        String cmd; //string to read in commands
 
-            String cmd = sc.next();
+        System.out.print("> ");
+        while(!(cmd = sc.next()).equals("quit")) { //loop while there's input
+
             if(cmd.equals("sections")) //if user wants sections
                 sections.printNodes(sc.next()); //print sections
             else if(cmd.equals("add"))
@@ -44,8 +45,8 @@ public class Proj01 {
                 schedule.printSchedule(); //print schedule
             else if(cmd.equals("week"))
                 schedule.getWeek().printWeek(); //print grid of schedule
-            else if(cmd.equals("quit")) //leave while loop if quit
-                break;
+            else if(cmd.equals("fit"))
+                schedule.getWeek().fits(sections, schedule, sc.next());
             else
                 System.out.println("Unknown command: " + cmd);
 

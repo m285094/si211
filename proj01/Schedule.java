@@ -27,5 +27,16 @@ public class Schedule {
 
         for(int i = 0; i < count; i++) //loop through and print the sections
             System.out.println(schedule[i]);
+    }
+
+    public boolean isInSchedule(String s) {
+
+        for(int i = 0; i < count; i++) { //loop through sections in schedule
+
+            if(s.equals(schedule[i].getName())) //returns true if match
+                return true;
+        }
+
+        return false; //false if course not in schedule
     }   
 }

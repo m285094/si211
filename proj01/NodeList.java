@@ -48,4 +48,39 @@ public class NodeList {
 
         return null; //returns null if doesn't exist
     }
+
+    private int listLength() {
+
+        int count = 0; //loop through until points to null
+        for(Node p = L; p != null; p = p.next)
+            count++; //increment every time to find length
+
+        return count;
+    }
+
+    public int findNumOccurences(String s) {
+
+        if(s.equals("any")) //if word is any, return nodelist length
+            return listLength();
+
+        int count = 0; //otherwise count how many match the course name
+        for(Node p = L; p != null; p = p.next)
+            if(s.equals(p.data.getName())) count++;
+
+        return count;
+    }
+
+    public Section[] getData(String s, int n) {
+
+        Section[] data = new Section[n];
+        int index = 0; 
+        for(Node p = L; p != null; p = p.next) { //loop through nodelist
+
+            //if they want any, add all, but only add target course names
+            if(s.equals("any") || s.equals(p.data.getName())) 
+                data[index++] = p.data;
+        }
+
+        return data;
+    }
 }
