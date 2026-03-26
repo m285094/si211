@@ -1,32 +1,46 @@
+// Sam Pirkl and Sean Beckford
+
 public class ThingC extends ThingB {
-    // private char lab = 'r';
-    private int leftTurnsRemaining, rightTurnsRemaining;
+
+    // new variables for thingc
+    private int leftDiagonalsRemaining, rightDiagonalsRemaining;
     public ThingC(int row, int col, char lab) {
         super(row, col, lab);
-        leftTurnsRemaining = 0;
-        rightTurnsRemaining = 0;
+        leftDiagonalsRemaining = 0;
+        rightDiagonalsRemaining = 0;
     }
 
     public void maybeTurn()
     {
         int i = rand.nextInt(3);
-        timeSinceLast++; 
-        if (timeSinceLast == 10)
-        {
-            timeSinceLast = 0;
-            if (i == 1 && leftTurnsRemaining == 0) {
-                leftTurn();
-                leftTurnsRemaining = 9;
-            } else if(i == 1) {
-                leftTurn();
-                leftTurnsRemaining--;
-            } else if (i == 2 && rightTurnsRemaining == 0) { 
-                rightTurn(); 
-                rightTurnsRemaining = 9;
-            } else if(i == 2) {
-                rightTurn();
-                rightTurnsRemaining--;
-            }
+        if(leftDiagonalsRemaining > 0) { // has to do at least 10 moves in diagonal
+
+            leftTurn();
+            step();
+            rightTurn();
+
+            leftDiagonalsRemaining--; // subtract number of diagonal moves by 1
+        } else if(rightDiagonalsRemaining > 0) { // has to do at least 10 moves in diagonal
+
+            rightTurn();
+            step();
+            leftTurn();
+            
+            rightDiagonalsRemaining--; // subtract number of diagonal moves by 1
+        } else if(i == 1) { // if there are no diagonal moves left
+
+            leftDiagonalsRemaining = 9; // i = 1 means start left diagonal
+
+            leftTurn();
+            step();
+            rightTurn();
+        } else if(i == 2) { // no diagonal moves left
+
+            rightDiagonalsRemaining = 9; // i = 1 means start right diagonal
+
+            rightTurn();
+            step();
+            leftTurn();
         }
     }
 }

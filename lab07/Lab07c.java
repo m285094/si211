@@ -1,3 +1,5 @@
+// Sam Pirkl and Sean Beckford
+
 import java.util.*;
 
 public class Lab07c {
@@ -17,7 +19,7 @@ public class Lab07c {
                 L.addToList(new ThingC(55, 60, 'g'));
             }
 
-            L.printList();
+            L.printThings();
             L.moveThings();
 
             count++;

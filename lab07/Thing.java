@@ -1,3 +1,5 @@
+// Sam Pirkl and Sean Beckford
+
 import java.util.*;
 
 public class Thing {

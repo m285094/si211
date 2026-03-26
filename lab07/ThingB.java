@@ -1,7 +1,8 @@
+// Sam Pirkl and Sean Beckford
+
 public class ThingB extends Thing {
 
-    protected int timeSinceLast;
-    // private char lab = 'r';
+    protected int timeSinceLast; // jas its own variable
     public ThingB(int row, int col, char lab) {
         super(row, col);
         this.lab = lab;
@@ -10,7 +11,7 @@ public class ThingB extends Thing {
     public void maybeTurn()
     {
         int i = rand.nextInt(3);
-        timeSinceLast++; 
+        timeSinceLast++; // turn every 10 turns
         if (timeSinceLast == 10)
         {
             timeSinceLast = 0;

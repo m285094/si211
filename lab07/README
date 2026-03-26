@@ -1,0 +1,21 @@
+Sam Pirkl and Sean Beckford
+
+This redesign makes good use of encapsulation because it separates all the
+code involving the implementation of the Thing objects into a Thing class (or
+extensions of the Thing class). It supports data hiding because all instance 
+variables are made private. It also uses inheritance to make an ThingB an
+extension of the Thing class. So ThingB "is a" Thing, but it has a few
+differences in its implementation from the Thing class. It also uses
+polymorphism to override function calls to maybeTurn(), because the ThingA
+and ThingB objects have different reasons for why they turn. 
+
+This design makes adding new types of Thing objects very easy because it
+extends a pre-existing class, so the new Thing inherits all the variables
+of the other class. So you don't need to rewrite the logic for how the Thing
+moves, you just need to use those for when the Thing needs to turn.
+
+The moveThings() function in the ThingList class has a polymorphic function
+call maybeTurn(). For each Thing object in the ThingList (which could be a 
+ThingA, ThingB, or ThingC), it calls maybeTurn() for each of those. This is 
+essential because the program doesn't need to know what kind of Thing object 
+it's referencing, it just needs each Thing to turn with its own turn mechanics.
