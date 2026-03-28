@@ -23,13 +23,17 @@ public class Vault {
 
         String fname = (args.length > 1) ? args[1] : args[0];
         Scanner fin;
-        UserList L = new UserList();
+        List L = new UserList();
+        List D = new DataList();
         try {
             fin = new Scanner(new FileReader(fname));
 
             while(fin.hasNext()) {
-                fin.next();
-                L.addUser(fin.next(), fin.next(), fin.next());
+                String type = fin.next();
+                if(type.equals("user"));
+                    L.add(fin.next(), fin.next(), fin.next());
+                else if(type.equals("data"))
+                    D.add(fin.next(), fin.next(), fin.next());
             }
         } catch(IOException e) {
             System.out.println("Error! File '"+fname+"' could not be opened.");
@@ -47,6 +51,7 @@ public class Vault {
                 L.printUsersToFile(pw); // ERROR - does not write back to the file even if it fails the padcut bc password has $
             } catch(FileNotFoundException fnfe) {
                 fnfe.printStackTrace();
+                System.exit(1);
             }
 
             String username = getUsername();
@@ -61,10 +66,9 @@ public class Vault {
                 pw.println("user " + username + " " + hashAlg + " " + UserList.computeNewUserHash(hashAlg, password));
             } catch(Exception e) {
                 System.out.println(e.getMessage());
-                System.exit(1);
             }
 
-            pw.close();
+            if(pw != null) pw.close();
             System.exit(0);
         }
 
@@ -92,6 +96,13 @@ public class Vault {
             System.out.print("> ");
             cmd = sc.next();
 
+            if(cmd.equals("labels")) {
+                continue;
+            } else if(cmd.equals("get")) {
+                continue;
+            } else {
+                System.out.println("Unknown command '" + cmd "'.");
+            }
         }
     }
 }
