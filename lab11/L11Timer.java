@@ -8,8 +8,18 @@ public class L11Timer {
 
     public static void main(String[] args) {
 
-        // make new countdown frame
-        JFrame f = new CountdownFrame();
+        // make frames
+        JFrame f = new JFrame();
+
+        // make countdown panels
+        JPanel p1 = new CountdownFrame();
+        JPanel p2 = new CountdownFrame();
+        JPanel p3 = new CountdownFrame();
+
+        // add panels to the frame
+        f.add(p1, BorderLayout.NORTH);
+        f.add(p2, BorderLayout.CENTER);
+        f.add(p3, BorderLayout.SOUTH);
 
         // set to size, close program when click x, and show the frame
         f.pack();
