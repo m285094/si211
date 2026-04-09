@@ -8,7 +8,7 @@ public class L11Timer {
 
     public static void main(String[] args) {
 
-        // make frames
+        // make frame
         JFrame f = new JFrame();
 
         // make countdown panels
