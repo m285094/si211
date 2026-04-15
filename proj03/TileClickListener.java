@@ -15,7 +15,7 @@ public class TileClickListener implements MouseListener {
     public void mouseEntered(MouseEvent e) {}
     public void mouseExited(MouseEvent e) {}
     public void mousePressed(MouseEvent e) {
-        System.out.println(" Tile pressed");
+        System.out.println(" Tile "+t.getPos()+" pressed");
         if(t.getActivatedStatus() == false) {
             t.setActivatedStatus(true);
             System.out.println("Tile activated");
