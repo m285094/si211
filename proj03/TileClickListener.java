@@ -15,16 +15,16 @@ public class TileClickListener implements MouseListener {
     public void mouseEntered(MouseEvent e) {}
     public void mouseExited(MouseEvent e) {}
     public void mousePressed(MouseEvent e) {
-        System.out.println(" Tile "+t.getPos()+" pressed");
+        // System.out.println(" Tile "+t.getPos()+" pressed");
         if(t.getActivatedStatus() == false) {
+            // System.out.println("Tile "+t.getPos()+" activated");
             t.setActivatedStatus(true);
-            System.out.println("Tile activated");
         } else {
+            // System.out.println("Tile "+t.getPos()+" deactivated");
             t.setActivatedStatus(false);
-            System.out.println("Tile deactivated");
         }
     }
     public void mouseReleased(MouseEvent e) {
-        System.out.println(" Tile released");
+        // System.out.println(" Tile "+t.getPos()+" released");
     }
 }

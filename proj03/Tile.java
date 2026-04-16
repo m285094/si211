@@ -20,6 +20,8 @@ public class Tile extends JPanel {
     private Pos p;
     private int id;
     private boolean tileActivated;
+    private TileListener tl;
+    private TileClickListener tcl;
     public Tile(int r, int c, int id) {
 
         p = new Pos(r, c);
@@ -34,5 +36,19 @@ public class Tile extends JPanel {
 
     public Pos getPos() { return p; }
     public boolean getActivatedStatus() { return tileActivated; }
-    public void setActivatedStatus(boolean b) { tileActivated = b; }
+    public void setActivatedStatus(boolean b) { 
+        tileActivated = b; 
+        if(b) tl.activated(this);
+        else tl.deactivated(this);
+    }
+
+    public void addTileListener(TileListener tl) { this.tl = tl; }
+    public void addTileClickListener(TileClickListener tcl) { this.tcl = tcl; }
+    public TileClickListener getTileClickListener() { return tcl; }
+
+    public boolean checkIDMatch(Tile t) { return this.id == t.id; }
+    public void matched() { 
+        System.out.println("Tile "+p+" was matched"); 
+        setBackground(Color.WHITE);
+    }
 }
