@@ -6,7 +6,6 @@ import java.awt.event.*;
 
 public class CountdownFrame extends JPanel {
 
-    private JPanel p;
     private JLabel l;
     private JTextField tf;
     private JButton b;
