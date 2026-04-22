@@ -15,9 +15,14 @@ public class P3 {
 
         JFrame f = new JFrame();
 
-        Board b = new Board(seed);
-        f.add(b);
-        f.setVisible(true);
+        BoardPanel p = new BoardPanel();
+        Board b = new Board(seed, p);
+
+        f.add(p, BorderLayout.NORTH);
+        f.add(b, BorderLayout.CENTER);
+
         f.pack();
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setVisible(true);
     }
 }

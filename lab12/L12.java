@@ -3,6 +3,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.*;
 
 public class L12 {
 
@@ -11,16 +12,23 @@ public class L12 {
         // make new frame
         JFrame f = new JFrame();
         JPanel p = new JPanel();
-        Orbit o1 = new Orbit(400, 400, 200, Color.PINK);
-        Orbit o2 = new Orbit(o1.getPlanet().getX(), o1.getPlanet().getY(), 100, Color.BLUE);
-        DrawArea d = new DrawArea(o1, o2);
-        p.add(d);
 
-        JButton b = new JButton("countdown");
-        b.addActionListener(new ButtonClickListener(this, l, tf));
-        p.add(new JButton());
+        // make an arraylist to hold orbits
+        ArrayList<Orbit> orbits  = new ArrayList<Orbit>();
+        orbits.add(new Orbit(300, 300, 150, Color.PINK, 0.01));
+        orbits.add(new Orbit(orbits.get(0).getPlanet(), 75, Color.BLUE, 0.03));
+
+        // add orbit to drawarea class
+        DrawArea da = new DrawArea(orbits);
+        p.add(da); // and add draw area to the panel
+
+        // add start buttom to the panel
+        JButton b = new JButton("start");
+        b.addActionListener(new ButtonClickListener(b, orbits, da));
+        p.add(b); // add start button to the panel
+
+        // add the panel to the frame
         f.add(p);
-
 
         // set to size, close program when click x, and show the frame
         f.pack();
