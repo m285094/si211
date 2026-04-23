@@ -10,16 +10,16 @@ public class Board extends JPanel implements TileListener {
 
     private static final int BOARD_SIZE = 6;
     private int[][] kindIDs;
-    private JPanel grid;
     private Tile firstSelected, secondSelected;
     private int remainingTiles;
     private BoardPanel p;
     public Board(int seed, BoardPanel p) {
 
+        // get ids for each tile
         kindIDs = P3Tools.getRandomKindIdAssignments(seed, (BOARD_SIZE*BOARD_SIZE)/2, BOARD_SIZE);
 
-        grid = new JPanel();
-        grid.setLayout(new GridLayout(BOARD_SIZE, BOARD_SIZE));
+        // make the board gridlayout
+        setLayout(new GridLayout(BOARD_SIZE, BOARD_SIZE));
 
         this.p = p;
         for(int r = 0; r < BOARD_SIZE; r++) {
@@ -29,14 +29,12 @@ public class Board extends JPanel implements TileListener {
                 // t.addTileClickListener(new TileClickListener(t));
 
                 // t.addMouseListener(t.getTileClickListener());
-                t.addMouseListener(new TileClickListener(t, this.p.getButtonClickListener()));
+                t.addMouseListener(new TileClickListener(t, this.p));
                 t.addTileListener(this);
 
-                grid.add(t);
+                add(t);
             }
         }
-
-        this.add(grid);
 
         firstSelected = null;
         secondSelected = null;
@@ -48,26 +46,22 @@ public class Board extends JPanel implements TileListener {
 
         System.out.println("Tile "+t.getPos()+" activated");
 
+        // if the tile selected is the same as the one already selected
         if (t == firstSelected) {
             System.out.println("Tile " + t.getPos() + " deselected");
 
+            // set it to false and make no tiles selected
             t.setActivatedStatus(false);
             firstSelected = null;
             secondSelected = null;
             return;
         }
 
-        if(firstSelected == null) {firstSelected = t; secondSelected = null; return; }
+        if(firstSelected == null) { firstSelected = t; secondSelected = null; return; }
         if(t != firstSelected) secondSelected = t; // dont make the second selected the same tile if clicked twice
-
-        // if(firstSelected != null)
-        //     System.out.println("first tile selected: " + firstSelected.getPos());
-        // if(secondSelected != null)
-        //     System.out.println("second tile selected: " + secondSelected.getPos());
 
         // if there are two tiles selected
         if(firstSelected != null && secondSelected != null) {
-
 
             // if the ids of the tiles match
             if(firstSelected.checkIDMatch(secondSelected)) {
@@ -77,13 +71,6 @@ public class Board extends JPanel implements TileListener {
                 secondSelected.matched();
 
                 remainingTiles -= 2;
-
-                // // remove the listeners
-                // firstSelected.removeMouseListener(firstSelected.getTileClickListener());
-                // secondSelected.removeMouseListener(secondSelected.getTileClickListener());
-
-                // firstSelected.setActivatedStatus(false);
-                // secondSelected.setActivatedStatus(false);
 
                 firstSelected = secondSelected = null;
 
@@ -108,66 +95,6 @@ public class Board extends JPanel implements TileListener {
             p.gameWon();
         }
     }
-
-    // public void activated(Tile t) {
-
-    //     System.out.println("Tile " + t.getPos() + " activated");
-
-    //     // if the same tile is clicked twice in a row
-    //     if(t == firstSelected) {
-    //         System.out.println("Tile " + t.getPos() + " deselected");
-
-    //         // set activated to false
-    //         t.setActivatedStatus(false);
-    //         firstSelected = null;
-    //         secondSelected = null;
-    //         return; // and quit
-    //     }
-
-    //     // select the first tile
-    //     if(firstSelected == null) {
-    //         firstSelected = t;
-    //         secondSelected = null;
-    //         return;
-    //     }
-
-    //     // select the second tile
-    //     if(secondSelected == null && t != firstSelected) {
-    //         secondSelected = t;
-    //     }
-
-    //     // if there are two tiles selected that are different
-    //     if(firstSelected != null && secondSelected != null) {
-
-    //         if(firstSelected.checkIDMatch(secondSelected)) {
-
-    //             System.out.println("Match!");
-
-    //             firstSelected.matched();
-    //             secondSelected.matched();
-
-    //         } else {
-
-    //             System.out.println("No match");
-
-    //             firstSelected.setActivatedStatus(false);
-    //             secondSelected.setActivatedStatus(false);
-
-    //             deactivated(firstSelected);
-    //             deactivated(secondSelected);
-    //         }
-
-    //         firstSelected = null;
-    //         secondSelected = null;
-    //     }
-    // }
-
-    // public void deactivated(Tile t) {
-
-    //     System.out.println("Tile "+t.getPos()+" deactivated");        
-
-    //     // t.setActivatedStatus(false);
-    // }
 
     public void deactivated(Tile t) {
 

@@ -1,0 +1,23 @@
+digraph "Design" {
+"Board" -> "BoardPanel";
+"Board" -> "Tile";
+"Board" -> "TileClickListener";
+"Board" -> "TileListener";
+"Board" -> "si211.P3Tools";
+"Board" -> "si211.Pos";
+"BoardPanel" -> "ButtonClickListener";
+"ButtonClickListener" -> "BoardPanel";
+"ButtonClickListener" -> "TimerThread";
+"P3" -> "Board";
+"P3" -> "BoardPanel";
+"Tile" -> "TileClickListener";
+"Tile" -> "TileListener";
+"Tile" -> "si211.P3Tools";
+"Tile" -> "si211.Pos";
+"TileClickListener" -> "BoardPanel";
+"TileClickListener" -> "Tile";
+"TileListener" -> "Tile";
+"TimerThread" -> "BoardPanel";
+"TimerThread" -> "ButtonClickListener";
+"TimerThread" -> "Timer";
+}

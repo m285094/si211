@@ -24,7 +24,7 @@ public class BoardPanel extends JPanel {
         add(time);
     }
 
-    public ButtonClickListener getButtonClickListener() { return bcl; }
+    public boolean isGameRunning() { return bcl.getRunningValue(); }
 
     public void setFormatTime(int mm, int ss) {
 

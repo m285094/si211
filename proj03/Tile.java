@@ -42,10 +42,12 @@ public class Tile extends JPanel {
         repaint();
     }
 
+    public void toggle() {
+        setActivatedStatus(!tileActivated);
+    }
+
     public void addTileListener(TileListener tl) { this.tl = tl; }
     public void addTileClickListener(TileClickListener tcl) { this.tcl = tcl; }
-    public TileClickListener getTileClickListener() { return tcl; }
-    public TileListener getTileListener() { return tl; }
 
     public boolean checkIDMatch(Tile t) { return this.id == t.id; }
     public void matched() { 

@@ -8,7 +8,7 @@ public class TimerThread extends Thread {
 
     private BoardPanel p;
     private ButtonClickListener bcl;
-    public TimerThread(BoardPanel p, ButtonClickListener bcl) {
+    public TimerThread(BoardPanel p) {
         this.p = p;
         this.bcl = bcl;
     }
@@ -24,7 +24,7 @@ public class TimerThread extends Thread {
                 return;
             }
 
-            if(bcl.getRunningValue()) t.incTime();
+            if(p.isGameRunning()) t.incTime();
             p.setFormatTime(t.getMM(), t.getSS());
         }
     }

@@ -21,7 +21,7 @@ public class ButtonClickListener implements ActionListener {
         running = false;
         finished = false;
 
-        t = new TimerThread(p, this);
+        t = new TimerThread(p);
     }
 
     public boolean getRunningValue() { return running; }
