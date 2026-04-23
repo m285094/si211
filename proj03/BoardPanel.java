@@ -4,27 +4,40 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class BoardPanel extends JPanel {
+public class BoardPanel extends JPanel implements BoardControl, ActionListener {
 
     private JLabel text, time;
     private JButton b;
-    private ButtonClickListener bcl;
+    private boolean started, running, finished;
+    private TimerThread tt;
+    private Timer t;
     public BoardPanel() {
         
         text = new JLabel("Get ready to play!");
 
         b = new JButton("start");
-        bcl = new ButtonClickListener(this, text, b, time);
-        b.addActionListener(bcl);
+        b.addActionListener(this);
 
         time = new JLabel("00:00");
 
         add(text);
         add(b);
         add(time);
+
+        started = false;
+        running = false;
+        finished = false;
+
+        tt = new TimerThread(this);
+        t = new Timer();
     }
 
-    public boolean isGameRunning() { return bcl.getRunningValue(); }
+    public boolean isGameRunning() { return running; }
+
+    public void tick() {
+        t.incTime();
+        setFormatTime(t.getMM(), t.getSS());
+    }
 
     public void setFormatTime(int mm, int ss) {
 
@@ -41,6 +54,32 @@ public class BoardPanel extends JPanel {
         text.setText("You won!");
         b.setText("exit");
 
-        bcl.gameFinished();
+        running = false;
+        finished = true;
+    }
+
+    public void actionPerformed(ActionEvent e) {
+
+        if(!started) {
+            started = true;
+            text.setText("Hurry up, the clock's running!");
+            b.setText("pause");
+
+            tt.start();
+        }
+
+        if(finished) {
+            System.exit(0);
+        }
+
+        if(!running) {
+            running = true;
+            text.setText("Hurry up, the clock's running!");
+            b.setText("pause");
+        } else if(running) {
+            running = false;
+            text.setText("Get ready to play!");
+            b.setText("resume");
+        }
     }
 }

@@ -10,10 +10,10 @@ public class Board extends JPanel implements TileListener {
 
     private static final int BOARD_SIZE = 6;
     private int[][] kindIDs;
-    private Tile firstSelected, secondSelected;
+    private Tile selectedTile;
     private int remainingTiles;
-    private BoardPanel p;
-    public Board(int seed, BoardPanel p) {
+    private BoardControl bc;
+    public Board(int seed, BoardControl bc) {
 
         // get ids for each tile
         kindIDs = P3Tools.getRandomKindIdAssignments(seed, (BOARD_SIZE*BOARD_SIZE)/2, BOARD_SIZE);
@@ -21,23 +21,23 @@ public class Board extends JPanel implements TileListener {
         // make the board gridlayout
         setLayout(new GridLayout(BOARD_SIZE, BOARD_SIZE));
 
-        this.p = p;
+        this.bc = bc;
         for(int r = 0; r < BOARD_SIZE; r++) {
 
             for(int c = 0; c < BOARD_SIZE; c++) {
-                Tile t = new Tile(r, c, kindIDs[r][c]);
-                // t.addTileClickListener(new TileClickListener(t));
+                Tile t = new Tile(r, c, kindIDs[r][c], bc);
 
-                // t.addMouseListener(t.getTileClickListener());
-                t.addMouseListener(new TileClickListener(t, this.p));
+                // tile is its own mouse click listener
+                t.addMouseListener(t);
+
+                // board is a tile listener
                 t.addTileListener(this);
 
                 add(t);
             }
         }
 
-        firstSelected = null;
-        secondSelected = null;
+        selectedTile = null;
 
         remainingTiles = BOARD_SIZE*BOARD_SIZE;
     }
@@ -46,53 +46,18 @@ public class Board extends JPanel implements TileListener {
 
         System.out.println("Tile "+t.getPos()+" activated");
 
-        // if the tile selected is the same as the one already selected
-        if (t == firstSelected) {
-            System.out.println("Tile " + t.getPos() + " deselected");
-
-            // set it to false and make no tiles selected
-            t.setActivatedStatus(false);
-            firstSelected = null;
-            secondSelected = null;
-            return;
+        if(selectedTile == null) { 
+            selectedTile = t; 
+            return; 
         }
 
-        if(firstSelected == null) { firstSelected = t; secondSelected = null; return; }
-        if(t != firstSelected) secondSelected = t; // dont make the second selected the same tile if clicked twice
+        if(selectedTile.checkMatch(t) == true) remainingTiles -= 2;
+        else selectedTile.reset();
 
-        // if there are two tiles selected
-        if(firstSelected != null && secondSelected != null) {
-
-            // if the ids of the tiles match
-            if(firstSelected.checkIDMatch(secondSelected)) {
-                System.out.println("Tile "+firstSelected.getPos()+" and Tile "+secondSelected.getPos()+" colors match");
-
-                firstSelected.matched();
-                secondSelected.matched();
-
-                remainingTiles -= 2;
-
-                firstSelected = secondSelected = null;
-
-            // if the ids don't match
-            } else {
-                System.out.println("Tile "+firstSelected.getPos()+" and Tile "+secondSelected.getPos()+" colors don't match");
-
-                firstSelected.setActivatedStatus(false);
-                secondSelected.setActivatedStatus(false);
-
-                // firstSelected = secondSelected;
-                firstSelected = null;
-                secondSelected = null;
-
-                // firstSelected.setActivatedStatus(true);
-            }
-
-            
-        }
+        selectedTile = null;
 
         if(remainingTiles == 0) {
-            p.gameWon();
+            bc.gameWon();
         }
     }
 
@@ -100,6 +65,6 @@ public class Board extends JPanel implements TileListener {
 
         System.out.println("Tile " + t.getPos() + " deactivated");
 
-        // t.repaint();
+        selectedTile = null;
     }
 }
