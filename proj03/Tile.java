@@ -18,12 +18,12 @@ public class Tile extends JPanel implements MouseListener {
     private Color color;
     private boolean tileActivated, matched;
     private TileListener tl;
-    private BoardControl bc;
-    public Tile(int r, int c, int id, BoardControl bc) {
+    private GameController gc;
+    public Tile(int r, int c, int id, GameController gc) {
 
         p = new Pos(r, c);
         this.id = id;
-        this.bc = bc;
+        this.gc = gc;
 
         color = P3Tools.getSwatchColor(id);
 
@@ -96,7 +96,7 @@ public class Tile extends JPanel implements MouseListener {
     public void mousePressed(MouseEvent e) {
         // System.out.println(" Tile "+t.getPos()+" pressed");
 
-        if(bc.isGameRunning() && !matched) {        
+        if(gc.isGameRunning() && !matched) {        
 
             if(tileActivated == true) tileActivated = false;
             else tileActivated = true;

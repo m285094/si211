@@ -3,6 +3,7 @@
 public interface BoardControl {
 
     public boolean isGameRunning();
-    public void gameWon();
+    public boolean isFinished();
+    public void toggleRunning();
     public void tick();
 }

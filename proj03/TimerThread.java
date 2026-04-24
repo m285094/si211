@@ -6,23 +6,23 @@ import java.awt.event.*;
 
 public class TimerThread extends Thread {
 
-    private BoardControl c;
-    public TimerThread(BoardControl c) {
-        this.c = c;
+    private BoardControl bc;
+    public TimerThread(BoardControl bc) {
+        this.bc = bc;
     }
 
     public void run() {
 
-
         while(true) {
+
             try { Thread.sleep(1000); }
             catch(InterruptedException ie) {
                 System.out.println(ie.getMessage());
                 return;
             }
 
-            if(c.isGameRunning()) 
-                c.tick();
+            if(bc.isGameRunning())
+                bc.tick();
         }
     }
 }

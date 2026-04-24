@@ -12,8 +12,8 @@ public class Board extends JPanel implements TileListener {
     private int[][] kindIDs;
     private Tile selectedTile;
     private int remainingTiles;
-    private BoardControl bc;
-    public Board(int seed, BoardControl bc) {
+    private GameController gc;
+    public Board(int seed, GameController gc) {
 
         // get ids for each tile
         kindIDs = P3Tools.getRandomKindIdAssignments(seed, (BOARD_SIZE*BOARD_SIZE)/2, BOARD_SIZE);
@@ -21,11 +21,11 @@ public class Board extends JPanel implements TileListener {
         // make the board gridlayout
         setLayout(new GridLayout(BOARD_SIZE, BOARD_SIZE));
 
-        this.bc = bc;
+        this.gc = gc;
         for(int r = 0; r < BOARD_SIZE; r++) {
 
             for(int c = 0; c < BOARD_SIZE; c++) {
-                Tile t = new Tile(r, c, kindIDs[r][c], bc);
+                Tile t = new Tile(r, c, kindIDs[r][c], gc);
 
                 // tile is its own mouse click listener
                 t.addMouseListener(t);
@@ -57,7 +57,7 @@ public class Board extends JPanel implements TileListener {
         selectedTile = null;
 
         if(remainingTiles == 0) {
-            bc.gameWon();
+            gc.gameWon();
         }
     }
 

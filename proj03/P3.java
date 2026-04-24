@@ -3,7 +3,6 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import si211.*;
 
 public class P3 {
 
@@ -15,11 +14,16 @@ public class P3 {
 
         JFrame f = new JFrame();
 
-        BoardPanel p = new BoardPanel();
-        Board b = new Board(seed, p);
+        Game g = new Game(seed);
+        // GameController gc = new GameController();
+        // BoardPanel p = new BoardPanel(gc);
+        // gc.setPanel(p);
+        // Board b = new Board(seed, gc);
 
-        f.add(p, BorderLayout.NORTH);
-        f.add(b, BorderLayout.CENTER);
+        // f.add(p, BorderLayout.NORTH);
+        // f.add(b, BorderLayout.CENTER);
+
+        f.add(g);
 
         f.pack();
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
